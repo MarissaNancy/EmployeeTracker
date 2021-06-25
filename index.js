@@ -8,7 +8,7 @@ const connection = mysql.createConnection({
     database: 'employee_DB'
 });
 
-
+//gives choices and then the answer gets passed into switch stament and handles which code block will be executed
 const employeeOpt = () => {
     inquirer
     .prompt({
@@ -36,8 +36,8 @@ const employeeOpt = () => {
     })
 };
 
+//adding dept will prompt question and then with the answer make a connection query and insert it into db
 const addDept = () => {
-    // console.log('This function works!');
     inquirer
     .prompt({
         name: 'newDept',
@@ -46,9 +46,9 @@ const addDept = () => {
     })
     .then((answer) => {
         connection.query(
-            'INSERT INTO department SET ?',
+            'INSERT INTO departments SET ?',
         {
-            department_name: answer.newDept,//what the user typed in
+            name: answer.newDept,
         },
         (err) => {
             if (err) throw err;
@@ -59,6 +59,7 @@ const addDept = () => {
     })
 };
 
+//adding role will prompt questions and then then with the answers make a connection query and insert it into db
 const addRole = () =>{
     inquirer
     .prompt([
@@ -80,7 +81,7 @@ const addRole = () =>{
     ])
     .then((answer) => {
         connection.query(
-            'INSERT INTO role SET ?',//
+            'INSERT INTO roles SET ?',
             {
             title: answer.newRole,
             salary: answer.salary,
@@ -92,8 +93,10 @@ const addRole = () =>{
                 employeeOpt();
             }
             );
-    });
+    }); 
 };
+
+//adding employee will prompt questions and then then with the answers make a connection query and insert it into db
 const addEmp = () =>{
     inquirer
     .prompt([
@@ -108,19 +111,19 @@ const addEmp = () =>{
         message: 'Enter employee last name',
         },
         {
-        name: 'role',//
+        name: 'role',
         type: 'input',
-        message: 'What is the role id?',//
+        message: 'What is the role id?',
         },
         {
         name: 'manid',
         type: 'input',
-        message: ' What is the manager id',//
+        message: ' What is the manager id',
         }
     ])
     .then((answer) => {
         connection.query(
-            'INSERT INTO employee SET ?', //
+            'INSERT INTO employees SET ?',
             {
             first_name: answer.firstname,
             last_name: answer.lastname,
@@ -136,39 +139,35 @@ const addEmp = () =>{
     });
 }
 
+//viewing department will make a connection query and show results from db
 const viewDep = () => {
     console.log('Pulling up department info...\n');
     connection.query('SELECT * FROM departments', (err, res) => {
       if (err) throw err;
-      // Log all results of the SELECT statement
       console.log(res);
+      employeeOpt();
     });
 };
 
+//viewing employees will make a connection query and show results from db
 const viewEmp = () => {
     console.log('Pulling up employees...\n');
     connection.query('SELECT * FROM employees', (err, res) => {
         if (err) throw err;
         console.log(res);
+        employeeOpt();
     }) 
 };
 
+//viewing roles will make a connection query and show results from db
 const viewRoles = () => {
     console.log('Pulling up roles...\n');
     connection.query('SELECT * FROM roles', (err, res) => {
         if (err) throw err;
         console.log(res);
+        employeeOpt();
     })
 };
-
-// changeErole = () =>{
-//     employeeOpt();
-// }
-// //const addEmployee
-// //inquirer prompt
-// //.then answer and connection query  
-// //insert into employee table
-
 
 employeeOpt();
 
