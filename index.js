@@ -136,11 +136,6 @@ const addEmp = () =>{
     });
 }
 
-// viewDep = () =>{
-    
-//     employeeOpt();
-// };
-
 const viewDep = () => {
     console.log('Pulling up department info...\n');
     connection.query('SELECT * FROM departments', (err, res) => {
@@ -148,15 +143,27 @@ const viewDep = () => {
       // Log all results of the SELECT statement
       console.log(res);
     });
-  };
-
-viewEmp = () =>{
-    employeeOpt();
 };
 
-changeErole = () =>{
-    employeeOpt();
-}
+const viewEmp = () => {
+    console.log('Pulling up employees...\n');
+    connection.query('SELECT * FROM employees', (err, res) => {
+        if (err) throw err;
+        console.log(res);
+    }) 
+};
+
+const viewRoles = () => {
+    console.log('Pulling up roles...\n');
+    connection.query('SELECT * FROM roles', (err, res) => {
+        if (err) throw err;
+        console.log(res);
+    })
+};
+
+// changeErole = () =>{
+//     employeeOpt();
+// }
 // //const addEmployee
 // //inquirer prompt
 // //.then answer and connection query  
