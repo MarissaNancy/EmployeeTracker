@@ -14,7 +14,7 @@ const employeeOpt = () => {
     .prompt({
         name: 'listoption',
         type: 'list',
-        choices: [ 'Add department', 'Add role', 'Add employee', 'View Departments', 'View Roles', 'View Employees', 'Update Employee Role']//add exit for user?
+        choices: [ 'Add department', 'Add role', 'Add employee', 'View Departments', 'View Roles', 'View Employees']//add exit for user?
     }) 
     .then((answer) => {
         switch (answer.listoption){
@@ -30,8 +30,6 @@ const employeeOpt = () => {
                 return viewRoles();
             case 'View Employees':
                 return viewEmp();
-            case 'Update Employee Role':
-                return changeErole();
         }
     })
 };

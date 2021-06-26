@@ -17,7 +17,6 @@ Given when user can view role table
 Given when user can view employee table
 Given when user can update employee roles
 
-
-
 ## Mock up
-![Here is what my application runs like](./)
+Here is how my application runs 
+https://drive.google.com/file/d/1c3YavH3jC-Y-lPAJWv23VeClkLyfncxf/view?usp=sharing
