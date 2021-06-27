@@ -15,7 +15,7 @@ const employeeOpt = () => {
         name: 'listoption',
         type: 'list',
         choices: [ 'Add department', 'Add role', 'Add employee', 'View Departments', 'View Roles', 'View Employees']//add exit for user?
-    }) 
+    }) //Add choice to update employee and also exit opt
     .then((answer) => {
         switch (answer.listoption){
             case 'Add department':
@@ -141,11 +141,13 @@ const addEmp = () =>{
 const viewDep = () => {
     console.log('Pulling up department info...\n');
     connection.query('SELECT * FROM departments', (err, res) => {
-      if (err) throw err;
-      console.log(res);
-      employeeOpt();
+    if (err) throw err;
+    // const table = cTable.getTable(res);
+    // console.log(table);
+    employeeOpt();
     });
 };
+//do the console table 
 
 //viewing employees will make a connection query and show results from db
 const viewEmp = () => {
@@ -153,6 +155,8 @@ const viewEmp = () => {
     connection.query('SELECT * FROM employees', (err, res) => {
         if (err) throw err;
         console.log(res);
+        // const table = cTable.getTable(res);
+        // console.log(table);
         employeeOpt();
     }) 
 };
@@ -162,7 +166,8 @@ const viewRoles = () => {
     console.log('Pulling up roles...\n');
     connection.query('SELECT * FROM roles', (err, res) => {
         if (err) throw err;
-        console.log(res);
+        // const table = cTable.getTable(res);
+        // console.log(table);
         employeeOpt();
     })
 };
