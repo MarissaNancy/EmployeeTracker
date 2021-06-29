@@ -1,5 +1,6 @@
 const inquirer = require('inquirer');
 const mysql = require('mysql');
+require('console.table');
 const connection = mysql.createConnection({
     host: 'localhost',
     port: 3306,
@@ -14,8 +15,8 @@ const employeeOpt = () => {
     .prompt({
         name: 'listoption',
         type: 'list',
-        choices: [ 'Add department', 'Add role', 'Add employee', 'View Departments', 'View Roles', 'View Employees']//add exit for user?
-    }) //Add choice to update employee and also exit opt
+        choices: [ 'Add department', 'Add role', 'Add employee', 'View Departments', 'View Roles', 'View Employees', 'Exit']
+    })
     .then((answer) => {
         switch (answer.listoption){
             case 'Add department':
@@ -30,6 +31,8 @@ const employeeOpt = () => {
                 return viewRoles();
             case 'View Employees':
                 return viewEmp();
+            case 'Exit':
+                return exit();
         }
     })
 };
@@ -142,8 +145,7 @@ const viewDep = () => {
     console.log('Pulling up department info...\n');
     connection.query('SELECT * FROM departments', (err, res) => {
     if (err) throw err;
-    // const table = cTable.getTable(res);
-    // console.log(table);
+    console.table(res);
     employeeOpt();
     });
 };
@@ -154,9 +156,7 @@ const viewEmp = () => {
     console.log('Pulling up employees...\n');
     connection.query('SELECT * FROM employees', (err, res) => {
         if (err) throw err;
-        console.log(res);
-        // const table = cTable.getTable(res);
-        // console.log(table);
+        console.table(res);
         employeeOpt();
     }) 
 };
@@ -166,10 +166,39 @@ const viewRoles = () => {
     console.log('Pulling up roles...\n');
     connection.query('SELECT * FROM roles', (err, res) => {
         if (err) throw err;
-        // const table = cTable.getTable(res);
-        // console.log(table);
+        console.table(res);
         employeeOpt();
     })
+};
+
+
+//we want all emps
+// need to show a list of emps & we want to ask what emp to change role
+// we need selected emp id
+// we will need all roles now & show them a list of it so they can choose 
+//then you will make the update query
+// "UPDATE employee Set role_id = ? where employee_id = ?"
+//
+// const upDate = async () => {
+//     //what role are you changin this employee to
+//     //is going to update role id
+//     //where cust is equal to 2
+//     const employees = await connection.query('SELECT * FROM employees', (err, res) => {
+//         if (err) throw err;
+//     }) 
+//     inquirer //put in a var
+//     .prompt([
+//         {
+//         name: 'updateemp',
+//         type: 'input',
+//         message: 'Which employee do you want to change the role for?',
+//         },
+        
+//     ])
+// }
+
+const exit = () => {
+    process.exit();
 };
 
 employeeOpt();
