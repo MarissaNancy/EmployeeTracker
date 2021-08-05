@@ -19,8 +19,9 @@ A business owner wants to be able to view and manage their departments, roles, a
 - Given when user can update employee roles
 
 ## Tools and Technologies
-- React
-- CSS
+- Javascript
+- Inquirer
+- MySQL
 
 ## Usage 
  
